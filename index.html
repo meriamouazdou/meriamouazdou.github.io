@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meriam Ouazdou — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #8a6f2e;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #242424;
+    --dark4: #2e2e2e;
+    --white: #f5f0e8;
+    --white-dim: #b8b0a0;
+    --border: rgba(201,168,76,0.2);
+    --border-bright: rgba(201,168,76,0.5);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a { color: var(--white-dim); text-decoration: none; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 0.5rem 1.2rem; font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+  section { padding: 7rem 6rem; max-width: 1100px; margin: 0 auto; }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding-top: 8rem; max-width: 100%; margin: 0; position: relative; overflow: hidden; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 6rem; width: 100%; }
+  .hero-tag { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 1rem; }
+  .hero-name span { color: var(--gold); font-style: italic; }
+  .hero-sub { font-size: 1rem; color: var(--white-dim); max-width: 500px; line-height: 1.8; margin-bottom: 2.5rem; font-weight: 300; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-gold { background: var(--gold); color: var(--black); padding: 0.75rem 2rem; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; font-weight: 500; transition: all 0.3s; font-family: 'DM Sans', sans-serif; border: none; cursor: pointer; }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-outline { background: transparent; border: 1px solid var(--border-bright); color: var(--white); padding: 0.75rem 2rem; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--gold); font-weight: 300; }
+  .stat-label { font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--white-dim); margin-top: 0.2rem; }
+  .hero-bg-text { position: absolute; right: -2rem; top: 50%; transform: translateY(-50%); font-family: 'Cormorant Garamond', serif; font-size: 18rem; color: rgba(201,168,76,0.03); font-weight: 600; line-height: 1; pointer-events: none; user-select: none; }
+  .section-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--white); margin-bottom: 1rem; }
+  .section-line { width: 60px; height: 1px; background: var(--gold); margin-bottom: 3rem; }
+  #about { border-top: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: var(--white-dim); line-height: 2; margin-bottom: 1.2rem; font-size: 0.95rem; }
+  .about-text p strong { color: var(--gold); font-weight: 400; }
+  .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .about-card { border: 1px solid var(--border); padding: 1.2rem 1.5rem; background: var(--dark2); }
+  .about-card-icon { color: var(--gold); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .about-card-text { color: var(--white-dim); font-size: 0.85rem; line-height: 1.6; }
+  .about-card-text strong { color: var(--white); font-weight: 400; }
+  #skills { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; padding: 7rem 6rem; }
+  .skills-inner { max-width: 1100px; margin: 0 auto; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .skill-cat { border: 1px solid var(--border); padding: 1.8rem; background: var(--dark2); transition: border-color 0.3s; }
+  .skill-cat:hover { border-color: var(--border-bright); }
+  .skill-cat-title { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .skill-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
+  .skill-name { font-size: 0.85rem; color: var(--white-dim); }
+  .skill-bar-wrap { width: 80px; height: 2px; background: var(--dark4); }
+  .skill-bar { height: 2px; background: linear-gradient(90deg, var(--gold-dim), var(--gold)); }
+  #projects { border-top: 1px solid var(--border); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card { border: 1px solid var(--border); background: var(--dark2); padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
+  .project-card:hover { border-color: var(--border-bright); transform: translateY(-3px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-type { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.8rem; }
+  .project-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white); margin-bottom: 0.8rem; font-weight: 400; }
+  .project-desc { font-size: 0.82rem; color: var(--white-dim); line-height: 1.8; margin-bottom: 1.5rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag { font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; border: 1px solid var(--border); color: var(--white-dim); padding: 0.25rem 0.6rem; }
+  .project-link { display: inline-block; margin-top: 1.2rem; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: border-color 0.3s; }
+  .project-link:hover { border-color: var(--gold); }
+  #experience { border-top: 1px solid var(--border); }
+  .timeline { position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .timeline-item { padding-left: 2.5rem; margin-bottom: 3rem; position: relative; }
+  .timeline-dot { position: absolute; left: -4px; top: 6px; width: 8px; height: 8px; background: var(--gold); }
+  .timeline-date { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.4rem; }
+  .timeline-role { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--white); font-weight: 400; }
+  .timeline-company { font-size: 0.85rem; color: var(--gold); margin-bottom: 0.8rem; }
+  .timeline-desc { font-size: 0.82rem; color: var(--white-dim); line-height: 1.9; }
+  .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  #contact { border-top: 1px solid var(--border); text-align: center; }
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+  .contact-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 300; color: var(--white); margin-bottom: 1.5rem; }
+  .contact-title span { color: var(--gold); font-style: italic; }
+  .contact-sub { color: var(--white-dim); font-size: 0.9rem; line-height: 1.9; margin-bottom: 3rem; }
+  .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .contact-link { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; text-decoration: none; transition: all 0.3s; }
+  .contact-link-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
+  .contact-link-val { font-size: 0.85rem; color: var(--white-dim); transition: color 0.3s; }
+  .contact-link:hover .contact-link-val { color: var(--gold); }
+  footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 0.7rem; letter-spacing: 1.5px; color: var(--white-dim); text-transform: uppercase; }
+  footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">M.O.</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:meriamouazdou@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<div id="hero">
+  <div class="hero-bg-text">AI</div>
+  <div class="hero-inner">
+    <p class="hero-tag">Data Engineer & AI Engineer</p>
+    <h1 class="hero-name">Meriam<br><span>Ouazdou</span></h1>
+    <p class="hero-sub">Building end-to-end data solutions — from pipeline design and machine learning to cloud deployment and visualization.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-gold">View Projects</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">3+</div><div class="stat-label">Internships</div></div>
+      <div><div class="stat-num">6+</div><div class="stat-label">Projects</div></div>
+      <div><div class="stat-num">2</div><div class="stat-label">Degrees</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <p class="section-label">Who I am</p>
+  <h2 class="section-title">About Me</h2>
+  <div class="section-line"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>Junior Data Engineer & AI Engineering Student</strong> pursuing a double degree in Big Data & AI at <strong>ISGA Marrakech (EUR-ACE® accredited)</strong> and Cloud Computing & Data Engineering at <strong>Aivancity Paris-Cachan</strong>.</p>
+      <p>Passionate about turning raw data into intelligent solutions. I enjoy building end-to-end data pipelines — combining streaming architecture, graph databases, machine learning, and interactive dashboards.</p>
+      <p>3 internships completed including an <strong>AI & Big Data role at SNRT</strong>, Morocco's national broadcasting company, where I built a decision-support system with Django, MongoDB & predictive analytics.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">Education</div>
+        <div class="about-card-text"><strong>Engineering — Big Data & AI</strong><br>ISGA Marrakech · EUR-ACE® · 2023–2026</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">Double Degree</div>
+        <div class="about-card-text"><strong>Cloud Computing & Data Engineering</strong><br>Aivancity Paris-Cachan · France · 2023–2026</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">Languages</div>
+        <div class="about-card-text">Arabic · Amazigh · French · English</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">Open to</div>
+        <div class="about-card-text">Internship & full-time · Global opportunities</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="skills">
+  <div class="skills-inner">
+    <p class="section-label">What I know</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <div class="skill-cat-title">AI & Data Science</div>
+        <div class="skill-item"><span class="skill-name">Python / Scikit-learn</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">PyTorch / TensorFlow</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Machine Learning</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">NLP / Computer Vision</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div></div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Big Data & Streaming</div>
+        <div class="skill-item"><span class="skill-name">Apache Kafka</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Apache Spark</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Delta Lake</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Hadoop / Hive</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:68%"></div></div></div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Databases & BI</div>
+        <div class="skill-item"><span class="skill-name">Neo4j / Graph DB</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SQL / MySQL / Oracle</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">MongoDB</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Power BI</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Cloud & DevOps</div>
+        <div class="skill-item"><span class="skill-name">AWS</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Azure / GCP</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Docker / Git</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Django / Streamlit</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="projects">
+  <p class="section-label">What I've built</p>
+  <h2 class="section-title">Featured Projects</h2>
+  <div class="section-line"></div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-type">AI & Big Data · Internship</div>
+      <div class="project-title">Decision Support System — SNRT</div>
+      <div class="project-desc">Intelligent web application for Morocco's national broadcaster, enabling real-time KPI tracking and predictive analytics for the Operations & Maintenance Department.</div>
+      <div class="project-tags"><span class="tag">Django</span><span class="tag">MongoDB</span><span class="tag">Python</span><span class="tag">Power BI</span><span class="tag">AWS</span></div>
+      <a href="https://github.com/meriamouazdou/decision-support-system-SNRT" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Streaming · Graph Analytics</div>
+      <div class="project-title">Influencer Analysis Pipeline</div>
+      <div class="project-desc">End-to-end pipeline for social media influencer analysis. Real-time streaming with Kafka, Delta Lake storage, Neo4j graph modeling with PageRank & Louvain community detection.</div>
+      <div class="project-tags"><span class="tag">Kafka</span><span class="tag">Spark</span><span class="tag">Neo4j</span><span class="tag">Delta Lake</span><span class="tag">Streamlit</span></div>
+      <a href="https://github.com/meriamouazdou/influencer-analysis-kafka-neo4j" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-type">ETL · Data Warehouse</div>
+      <div class="project-title">E-Commerce Decision Support</div>
+      <div class="project-desc">ETL pipeline for e-commerce purchase analysis using Pentaho Data Integration, cloud data warehouse, and interactive Power BI dashboards for business intelligence.</div>
+      <div class="project-tags"><span class="tag">Pentaho</span><span class="tag">BigQuery</span><span class="tag">Power BI</span><span class="tag">SQL</span></div>
+      <a href="https://github.com/meriamouazdou/ecommerce-etl-decision-support" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Machine Learning · NLP</div>
+      <div class="project-title">Movie Review Classification</div>
+      <div class="project-desc">Binary sentiment classification model predicting positive/negative movie reviews using Logistic Regression and TF-IDF vectorization on the NLTK dataset.</div>
+      <div class="project-tags"><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">NLTK</span><span class="tag">NLP</span></div>
+      <a href="https://github.com/meriamouazdou/Movie-Review-Classification-with-Machine-Learning" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Distributed Streaming · Java</div>
+      <div class="project-title">Mini-Twitter — Kafka Streaming</div>
+      <div class="project-desc">Simplified Twitter-like messaging platform demonstrating real-time data streaming with Apache Kafka. Multi-topic Producer/Consumer architecture with fault-tolerant design.</div>
+      <div class="project-tags"><span class="tag">Kafka</span><span class="tag">Java</span><span class="tag">Distributed Systems</span></div>
+      <a href="https://github.com/meriamouazdou/mini-twitter-kafka-streaming" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Machine Learning · Python</div>
+      <div class="project-title">Student Performance Prediction</div>
+      <div class="project-desc">Multi-model classification comparing Decision Tree, Random Forest, Logistic Regression, Perceptron, and Neural Network on student academic performance data.</div>
+      <div class="project-tags"><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Pandas</span><span class="tag">Seaborn</span></div>
+      <a href="https://github.com/meriamouazdou/performancePrediction" class="project-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <p class="section-label">My journey</p>
+  <h2 class="section-title">Experience & Education</h2>
+  <div class="section-line"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;">
+    <div>
+      <p style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:2rem;">Work Experience</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">Jul 2025 – Sep 2025</div>
+          <div class="timeline-role">AI & Big Data Intern</div>
+          <div class="timeline-company">SNRT · Rabat, Morocco</div>
+          <div class="timeline-desc">Built a decision-support web application for the Operations & Maintenance Department. Designed Django & MongoDB architecture for large-scale data processing and predictive analytics.</div>
+          <div class="timeline-tags"><span class="tag">Django</span><span class="tag">MongoDB</span><span class="tag">Power BI</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">Jul 2024 – Aug 2024</div>
+          <div class="timeline-role">Data Analysis Intern</div>
+          <div class="timeline-company">Terrain 360 · Marrakech</div>
+          <div class="timeline-desc">Developed data analysis programs, contributed to data cleaning, transformation, and validation for analytical models.</div>
+          <div class="timeline-tags"><span class="tag">Python</span><span class="tag">Data Analysis</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">Jul 2023 – Sep 2023</div>
+          <div class="timeline-role">Web & Data Development Intern</div>
+          <div class="timeline-company">Optimal Construction · Marrakech</div>
+          <div class="timeline-desc">Developed a corporate website with data tracking and visualization modules for internal performance monitoring.</div>
+          <div class="timeline-tags"><span class="tag">Full Stack</span><span class="tag">Database</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dim);margin-bottom:2rem;">Education</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023 – 2026</div>
+          <div class="timeline-role">Engineering — Big Data & AI</div>
+          <div class="timeline-company">ISGA Marrakech · EUR-ACE® accredited</div>
+          <div class="timeline-desc">Final-year engineering student. Focus on machine learning, cloud architectures, data engineering, and AI systems.</div>
+          <div class="timeline-tags"><span class="tag">EUR-ACE®</span><span class="tag">Big Data</span><span class="tag">AI</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023 – 2026</div>
+          <div class="timeline-role">Double Degree — Cloud & Data Engineering</div>
+          <div class="timeline-company">Aivancity Paris-Cachan · France</div>
+          <div class="timeline-desc">Cloud Computing and Data Engineering specialization at a French Grande École in Paris.</div>
+          <div class="timeline-tags"><span class="tag">Cloud</span><span class="tag">Data Engineering</span></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2021 – 2023</div>
+          <div class="timeline-role">Preparatory Classes — Computer Science</div>
+          <div class="timeline-company">ISGA Marrakech</div>
+          <div class="timeline-desc">Intensive preparatory program in computer science, mathematics, and engineering fundamentals.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-inner">
+    <p class="section-label">Say hello</p>
+    <h2 class="contact-title">Let's Work <span>Together</span></h2>
+    <p class="contact-sub">Open to internships, entry-level positions, and collaborations in Data Engineering, ML Engineering, or AI — including global opportunities.</p>
+    <div class="contact-links">
+      <a href="mailto:meriamouazdou@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-val">meriamouazdou@gmail.com</span>
+      </a>
+      <a href="https://linkedin.com/in/meriam-ouazdou-3ab9101a0" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-val">meriam-ouazdou</span>
+      </a>
+      <a href="https://github.com/meriamouazdou" class="contact-link">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-val">meriamouazdou</span>
+      </a>
+    </div>
+    <a href="mailto:meriamouazdou@gmail.com" class="btn-gold">Send Email ✉</a>
+  </div>
+</section>
+
+<footer>Crafted with care · <span>Meriam Ouazdou</span> © 2026 · Data Engineer · Marrakech, Morocco</footer>
+</body>
+</html>
